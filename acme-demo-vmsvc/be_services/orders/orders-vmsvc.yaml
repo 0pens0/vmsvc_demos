@@ -1,0 +1,50 @@
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachine
+metadata:
+  labels:
+    my-selector: orders-mongo-vmsvc
+  name: orders-mongo-vmsvc
+spec:
+  networkInterfaces:
+  - networkName: ""
+    networkType: nsx-t
+  className: best-effort-large
+  imageName: ubuntu-20.04-vmservice-v1alpha1.20210210
+  powerState: poweredOn
+  storageClass: k8s-storage-policy
+  vmMetadata:
+    configMapName: orders-mongo-cm-01
+    transport: OvfEnv
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: orders-mongo-cm-01
+data:
+  user-data: I2Nsb3VkLWNvbmZpZwp1c2VyczoKICAtIGRlZmF1bHQKICAtIG5hbWU6IHZtd2FyZQogICAgc3VkbzogQUxMPShBTEwpIE5PUEFTU1dEOkFMTAogICAgbG9ja19wYXNzd2Q6IGZhbHNlCiAgICAjIFBhc3N3b3JkIHNldCB0byBBZG1pbiEyMwogICAgcGFzc3dkOiAnJDEkc2FsdCRSVVhtMUxjbzVqY0o3T0J3LmhSUWkxJwogICAgc2hlbGw6IC9iaW4vYmFzaApzc2hfcHdhdXRoOiB0cnVlCgp3cml0ZV9maWxlczoKICAtIGNvbnRlbnQ6IHwKICAgICAgVk1TVkMgU2F5cyBIZWxsbyBXb3JsZAogICAgcGF0aDogL2hvbWUvdm13YXJlL2hlbGxvd29ybGQKCmFwdDoKICBzb3VyY2VzOgogICAgZG9ja2VyLmxpc3Q6CiAgICAgIHNvdXJjZTogZGViIFthcmNoPWFtZDY0XSBodHRwczovL2Rvd25sb2FkLmRvY2tlci5jb20vbGludXgvdWJ1bnR1ICRSRUxFQVNFIHN0YWJsZQogICAgICBrZXlpZDogOURDODU4MjI5RkM3REQzODg1NEFFMkQ4OEQ4MTgwM0MwRUJGQ0Q4OAoKcGFja2FnZV91cGRhdGU6IHRydWUKCnBhY2thZ2VzOgogIC0gZG9ja2VyLWNlCiAgLSBkb2NrZXItY2UtY2xpCiAgLSBkb2NrZXItY29tcG9zZQoKcnVuY21kOgogIC0gc3VkbyBkb2NrZXIgcnVuIC0tbmFtZSBuZ2lueCAtcCA4MDo4MCAtZCBoYXJib3IudGFuenV3b3JsZC5jb20vb3BlbnNvL25naW54Cgo=
+---
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachineService
+metadata:
+  name: orders-mongo-service
+spec:
+  ports:
+  - name: ssh
+    port: 22
+    protocol: TCP
+    targetPort: 22
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: mongo
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  - name: mongoexpress
+    port: 8081
+    protocol: TCP
+    targetPort: 8081
+  selector:
+    my-selector: orders-mongo-vmsvc
+  type: LoadBalancer

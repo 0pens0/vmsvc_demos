@@ -1,0 +1,11 @@
+apiVersion: vmoperator.vmware.com/v1alpha1
+classRef:
+  apiVersion: vmoperator.vmware.com/v1alpha1
+  kind: VirtualMachineClass
+  name: test-class
+kind: VirtualMachineClassBinding
+  name: test-class
+  namespace: oren
+  resourceVersion: "56515"
+  selfLink: /apis/vmoperator.vmware.com/v1alpha1/namespaces/vm-operator/virtualmachineclassbindings/test-class
+  uid: ba4d12c9-9b69-4f78-919b-d758a58fbdfb

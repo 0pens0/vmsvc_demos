@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    ls_id-0: 3f89fb94-3405-4988-ba60-dd18e9af68ef
+    ncp/extpoolid: domain-c8:0917850a-07d7-4ebf-b18f-e801dc416ec8-ippool-10-193-132-193-10-193-132-254
+    ncp/router_id: t1_121db2af-77b3-49aa-a399-51394d883046_rtr
+    ncp/snat_ip: 10.193.132.194
+    ncp/subnet-0: 10.244.0.16/28
+    vif-default-network-121db2af-77b3-49aa-a399-51394d883046: |-
+      {
+        "ls_id-0": "0733da23-a6e6-4576-bf35-7b97a80c2112",
+        "ncp/project-0": "vm-operator",
+        "ncp/subnet-0": "10.244.0.32/28"
+      }
+    vmware-system-resource-pool: resgroup-1085
+    vmware-system-vm-folder: group-v1086
+  creationTimestamp: "2021-03-18T11:28:00Z"
+  finalizers:
+  - namespaceoperator.vmware.com/owner-role
+  labels:
+    vSphereClusterID: domain-c8
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:vmware-system-resource-pool: {}
+          f:vmware-system-vm-folder: {}
+        f:finalizers:
+          .: {}
+          v:"namespaceoperator.vmware.com/owner-role": {}
+        f:labels:
+          .: {}
+          f:vSphereClusterID: {}
+      f:status:
+        f:phase: {}
+    manager: wcpsvc
+    operation: Update
+    time: "2021-03-18T11:28:21Z"
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:ls_id-0: {}
+          f:ncp/extpoolid: {}
+          f:ncp/router_id: {}
+          f:ncp/snat_ip: {}
+          f:ncp/subnet-0: {}
+          f:vif-default-network-121db2af-77b3-49aa-a399-51394d883046: {}
+    manager: nsx-ncp-54ccd68d5d-rgl67
+    operation: Update
+    time: "2021-03-18T13:23:58Z"
+  name: vm-operator
+  resourceVersion: "124279"
+  selfLink: /api/v1/namespaces/vm-operator
+  uid: 121db2af-77b3-49aa-a399-51394d883046
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active
