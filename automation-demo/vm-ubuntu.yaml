@@ -38,5 +38,5 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    my-selector: ubuntu-ssh-nginx-01
+    my-selector: ubuntu-services
   type: LoadBalancer
