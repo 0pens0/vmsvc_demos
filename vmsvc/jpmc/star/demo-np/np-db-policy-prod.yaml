@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: 99993-1003-a03-t4-prod
+  name: 99993-1003-a03-t4-prod.app-policy
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          namespace: 99994-1002-a03-t3-prod
+    ports:
+    - protocol: TCP
+      port: 1521
+  egress:
+  - to:
+    ports:
+    - port: 53
+      protocol: UDP

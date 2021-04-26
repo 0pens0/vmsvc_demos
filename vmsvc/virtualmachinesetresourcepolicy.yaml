@@ -1,0 +1,10 @@
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachineSetResourcePolicy
+metadata:
+  name: vmset-respolicy-example
+  namespace: default
+spec:
+  resourcepool:
+    name: resourcepool-name
+  folder:
+    name: folder-name

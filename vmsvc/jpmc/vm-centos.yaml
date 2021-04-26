@@ -1,0 +1,39 @@
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachine
+metadata:
+  labels:
+    my-selector: centos-ssh
+    app-group: blue
+  name: vmsvc-centos-test-01
+spec:
+  networkInterfaces:
+  - networkName: ""
+    networkType: nsx-t
+  className: test-class
+  imageName: centos-stream-8-vmservice-v1alpha1.20210222
+  powerState: poweredOn
+  storageClass: k8s-storage-policy
+  vmMetadata:
+    configMapName: vmsvc-centos-cm
+    transport: OvfEnv
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: vmsvc-centos-cm
+data:
+  user-data: I2Nsb3VkLWNvbmZpZwp1c2VyczoKICAtIGRlZmF1bHQKICAtIG5hbWU6IHZtd2FyZQogICAgc3VkbzogQUxMPShBTEwpIE5PUEFTU1dEOkFMTAogICAgbG9ja19wYXNzd2Q6IGZhbHNlCiAgICAjIFBhc3N3b3JkIHNldCB0byBBZG1pbiEyMwogICAgcGFzc3dkOiAnJDEkc2FsdCRTT0MzM2ZWYkEvWnhlSXdENXl3MXUxJwogICAgc2hlbGw6IC9iaW4vYmFzaApzc2hfcHdhdXRoOiB0cnVlCgp3cml0ZV9maWxlczoKICAtIGNvbnRlbnQ6IHwKICAgICAgVk1TVkMgU2F5cyBIZWxsbyBXb3JsZAogICAgcGF0aDogL2hlbGxvd29ybGQK
+---
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachineService
+metadata:
+  name: centos-ssh
+spec:
+  ports:
+  - name: ssh
+    port: 22
+    protocol: TCP
+    targetPort: 22
+  selector:
+    my-selector: ubuntu-ssh
+  type: LoadBalancer

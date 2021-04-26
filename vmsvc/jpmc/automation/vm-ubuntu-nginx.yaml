@@ -1,0 +1,66 @@
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachine
+metadata:
+  labels:
+    my-selector: ubuntu-ssh-nginx
+    namespace: ns-sec-label
+  name: vmsvc-ubuntu-nginx-cloud-init-01
+  annotations:
+    vmoperator.vmware.com/image-supported-check: disabled
+spec:
+  networkInterfaces:
+  - networkName: ""
+    networkType: nsx-t
+  className: test-class
+  imageName: ubuntu-20.04-vmservice-v1alpha1.20210210.enabled
+  powerState: poweredOn
+  storageClass: k8s-storage-policy
+  vmMetadata:
+    configMapName: vmsvc-ubuntu-nginx-cm
+    transport: OvfEnv
+---
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachine
+metadata:
+  labels:
+    my-selector: ubuntu-ssh-nginx
+    namespace: ns-sec-label
+  name: vmsvc-ubuntu-nginx-cloud-init-02
+  annotations:
+    vmoperator.vmware.com/image-supported-check: disabled
+spec:
+  networkInterfaces:
+  - networkName: ""
+    networkType: nsx-t
+  className: test-class
+  imageName: ubuntu-20.04-vmservice-v1alpha1.20210210.enabled
+  powerState: poweredOn
+  storageClass: k8s-storage-policy
+  vmMetadata:
+    configMapName: vmsvc-ubuntu-nginx-cm
+    transport: OvfEnv
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: vmsvc-ubuntu-nginx-cm
+data:
+  user-data: I2Nsb3VkLWNvbmZpZwp1c2VyczoKICAtIGRlZmF1bHQKICAtIG5hbWU6IHZtd2FyZQogICAgc3VkbzogQUxMPShBTEwpIE5PUEFTU1dEOkFMTAogICAgbG9ja19wYXNzd2Q6IGZhbHNlCiAgICAjIFBhc3N3b3JkIHNldCB0byBBZG1pbiEyMwogICAgcGFzc3dkOiAnJDEkc2FsdCRSVVhtMUxjbzVqY0o3T0J3LmhSUWkxJwogICAgc2hlbGw6IC9iaW4vYmFzaApzc2hfcHdhdXRoOiB0cnVlCgp3cml0ZV9maWxlczoKICAtIGNvbnRlbnQ6IHwKICAgICAgVk1TVkMgU2F5cyBIZWxsbyBXb3JsZAogICAgcGF0aDogL2hlbGxvd29ybGQKCmFwdDoKICBzb3VyY2VzOgogICAgZG9ja2VyLmxpc3Q6CiAgICAgIHNvdXJjZTogZGViIFthcmNoPWFtZDY0XSBodHRwczovL2Rvd25sb2FkLmRvY2tlci5jb20vbGludXgvdWJ1bnR1ICRSRUxFQVNFIHN0YWJsZQogICAgICBrZXlpZDogOURDODU4MjI5RkM3REQzODg1NEFFMkQ4OEQ4MTgwM0MwRUJGQ0Q4OAoKcGFja2FnZV91cGRhdGU6IHRydWUKCnBhY2thZ2VzOgogIC0gZG9ja2VyLWNlCiAgLSBkb2NrZXItY2UtY2xpCgpydW5jbWQ6CiAgLSBzdWRvIGRvY2tlciBydW4gLS1uYW1lIG5naW54IC1wIDgwOjgwIC1kIGhhcmJvci50YW56dXdvcmxkLmNvbS9vcGVuc28vbmdpbngK
+---
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachineService
+metadata:
+  name: ubuntu-ssh-nginx
+spec:
+  ports:
+  - name: ssh
+    port: 22
+    protocol: TCP
+    targetPort: 22
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    my-selector: ubuntu-ssh-nginx
+  type: LoadBalancer
