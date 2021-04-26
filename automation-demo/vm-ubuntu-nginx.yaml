@@ -21,8 +21,7 @@ apiVersion: vmoperator.vmware.com/v1alpha1
 kind: VirtualMachine
 metadata:
   labels:
-    my-selector: ubuntu-ssh-nginx
-    namespace: ns-sec-label
+    external-network: ubuntu-services
   name: vmsvc-ubuntu-nginx-cloud-init-02
 spec:
   networkInterfaces:
@@ -46,7 +45,7 @@ data:
 apiVersion: vmoperator.vmware.com/v1alpha1
 kind: VirtualMachineService
 metadata:
-  name: ubuntu-ssh-nginx
+  name: ubuntu-services
 spec:
   ports:
   - name: ssh
@@ -58,5 +57,5 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    my-selector: ubuntu-ssh-nginx
+    external-network: ubuntu-services
   type: LoadBalancer
