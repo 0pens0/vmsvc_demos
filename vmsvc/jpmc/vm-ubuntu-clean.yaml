@@ -1,9 +1,0 @@
-apiVersion: vmoperator.vmware.com/v1alpha1
-kind: VirtualMachine
-metadata:
-  name: vmsvc-ubuntu-test-01
-spec:
-  className: test-class
-  imageName: ubuntu-20.04-vmservice-v1alpha1.20210210
-  powerState: poweredOn
-  storageClass: k8s-storage-policy

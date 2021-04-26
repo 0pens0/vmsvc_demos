@@ -1,9 +1,0 @@
-apiVersion: vmoperator.vmware.com/v1alpha1
-kind: VirtualMachine
-metadata:
-  name: virtualmachine-example
-  namespace: default
-spec:
-  imageName: mySourceVm
-  className: guaranteed-xsmall
-  powerState: poweredOn

@@ -6,9 +6,9 @@ echo "Create a new Test Namespace"
 kubectl create ns automation
 echo "Add test-class machineclass and vm-svc content library to the Namespace configuration"
 curl --location --request PATCH 'https://openso-vcsa.lab.local/api/vcenter/namespaces/instances/automation' \
---header 'vmware-api-session-id: fe4f030055aff72ccb48ea75d8841718' \
+--header 'vmware-api-session-id: f9fc3f7089716da8a290ba886fe4cee1' \
 --header 'Content-Type: application/json' \
---header 'Cookie: vmware-api-session-id=fe4f030055aff72ccb48ea75d8841718' \
+--header 'Cookie: vmware-api-session-id=f9fc3f7089716da8a290ba886fe4cee1' \
 --data-raw '{
     "cluster": "domain-c8",
     "stats": {
