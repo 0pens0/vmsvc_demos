@@ -70,10 +70,10 @@ curl --location --request PATCH "https://${VCENTER}/api/vcenter/namespaces/insta
     "config_status": "RUNNING",
     "storage_specs": [
         {
-            "policy": "80177dfa-5425-4ae0-a537-fae8e3add6ea"
+            "policy": "f143f3de-40de-4084-b287-08ef86497d14"
         }
     ]
 }' -k
 
 echo "Deploying VM service to $NAMESPACE"
-kubectl create -f vm-ubuntu-nginx.yaml -n $NAMESPACE
+kubectl create -f vm-ubuntu-nginx.yaml -n $NAMESPACe

@@ -20,9 +20,6 @@ fi
 # Set the vCenter
 VCENTER="openso-vcsa.lab.local"
 
-echo "Creating Namespace $NAMESPACE"
-kubectl create ns $NAMESPACE
-
 # Fetch vCSA API token if not set
 if [ -z "$VCENTER_API_SESSION_ID" ]; then
         # Fetch vCSA API token
@@ -63,17 +60,15 @@ curl --location --request PATCH "https://${VCENTER}/api/vcenter/namespaces/insta
             "best-effort-xsmall"
         ],
         "content_libraries": [
-            "8fab3681-4498-40ef-9bd8-92d92663868e"
+            "9a0c6212-c8ce-4b7f-96b3-8fc4b9a52871"
         ]
     },
     "self_service_namespace": false,
     "config_status": "RUNNING",
     "storage_specs": [
         {
-            "policy": "80177dfa-5425-4ae0-a537-fae8e3add6ea"
+            "policy": "f143f3de-40de-4084-b287-08ef86497d14"
         }
     ]
 }' -k
 
-echo "Deploying VM service to $NAMESPACE"
-kubectl create -f vm-ubuntu-nginx.yaml -n $NAMESPACE
